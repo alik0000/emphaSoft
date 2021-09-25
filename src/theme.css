@@ -66,10 +66,11 @@ h1 {
     font-weight: 600;
 }
 
-h2 {
+.logo {
     font-size: 1.65rem;
     padding-bottom: 0.3rem;
     border-bottom: 1px solid #eaecef;
+    cursor: pointer;
 }
 
 h3 {
@@ -80,6 +81,27 @@ h3 {
 .container {
     margin: 0 auto;
     max-width: 100%;
+}
+
+.modal {
+    position: fixed;
+    width: 600px;
+    padding: 1rem;
+    background: white;
+    left: 50%;
+    top: 25%;
+    z-index: 1000;
+    border-radius: 10px;
+    transform: translateX(-50%);
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.2);
+}
+.modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.74);
 }
 
 .container.with-nav {
