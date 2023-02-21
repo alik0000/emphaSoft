@@ -1,0 +1,12 @@
+@mixin container {
+  width: 100%;
+  max-width: $width_container;
+
+  @include --tablet {
+    max-width: $width_container_tablet;
+  }
+
+  @include --mobile {
+    max-width: $width_container_mobile;
+  }
+}
