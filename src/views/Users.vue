@@ -2,71 +2,73 @@
   <AppSection tag="section">
     <template #head>
       <h1>Список пользователей</h1>
+      <button type="button" class="btn _accent" @click="openModal">Создать</button>
     </template>
-    <user-list :items="people.heroes"/>
+    <user-list :items="Users"/>
   </AppSection>
 </template>
 
 <script>
 import AppSection from "../components/AppSection";
 import UserList from "../components/UserList";
-import axios from "axios";
+import {mapGetters, mapMutations} from "vuex";
 
 export default {
-  data() {
-    return {
-      people: {
-        heroes: []
-      }
-    }
+  name: "users",
+  components: {AppSection, UserList},
+  computed: {
+    ...mapGetters(['Token', 'Users'])
   },
   async mounted() {
-    try {
-      const login = await axios.post('https://test-assignment.emphasoft.com/api/v1/login/', {
-        username: "sda",
-        password: "Nf<U4f<rDbtDxAPn"
-      })
-      console.log('login: ', login)
-      // console.log('login: ', login.data)
-
-      const { data } = await axios.get('https://test-assignment.emphasoft.com/api/v1/users', {
-        headers: {
-          Authorization: `Token ${login.data.token}`
-        }
-      })
-    } catch (err) {
-      console.log('err: ', err)
+    if (!!this.Token) {
+      await this.$store.dispatch('getData', this.Token)
     }
-
-    this.people.heroes = data
-
-    console.log('users: ', data)
-
-    await this.$store.dispatch('fetchPlanets');
-
-    // await this.LoadingData();
   },
   methods: {
-    /*async LoadingData(page = 1) {
-      const { data } = await this.axios.get(`https://swapi.dev/api/people/?page=${page}`);
-      const planets = this.$store.getters['Planets'];
-      this.people.heroes = data.results.map((p) => {
-        const planet = planets.find(plan => plan.url === p.homeworld);
-        const [_, id] = p.url.match(/people\/(\d+)\//);
-
-        return {
-          ...p,
-          homeworld: (planet && planet.name) || 'UNKNOWN',
-          img: `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`,
-        };
-      })
-    }*/
+    ...mapMutations(['TOGGLE_MODAL_VISIBLE']),
+    openModal() {
+      this.TOGGLE_MODAL_VISIBLE(true)
+    }
   },
-  name: "AppMainBlock",
-  components: {AppSection, UserList}
 }
 </script>
+<style lang="scss">
+@import "@/scss/app.scss";
 
-<style scoped>
+.users {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3.2rem;
 
+  &__filter {
+    display: block;
+    width: 100%;
+    border-radius: 2.4rem;
+    padding: 2.4rem;
+    background-color: var(--element-background);
+  }
+
+  &__btn-edit {
+    margin: auto;
+  }
+
+  &__undefined {
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  &__not-able {
+    text-align: center;
+
+    a {
+      color: var(--accent-color);
+      text-decoration: underline;
+      opacity: 1;
+      transition: opacity $tr-default;
+
+      @include hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
 </style>

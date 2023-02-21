@@ -5,11 +5,8 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import './theme.css'
-import {fas} from '@fortawesome/free-solid-svg-icons'
-import {library} from "@fortawesome/fontawesome-svg-core";
+import './scss/app.scss'
 
-library.add(fas);
 createApp(App)
     .use(VueAxios, axios)
     .use(store)

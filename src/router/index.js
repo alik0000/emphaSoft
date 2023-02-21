@@ -1,17 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AppMainBlock from "../views/AppMainBlock";
+import Users from "../views/Users";
+import Main from "../views/Main";
+import About from "../views/About";
+import Login from "../views/Login";
 
 
 const routes = [
   {
     path: '/',
     name: 'main',
-    component: AppMainBlock
+    component: Main
   },
   {
-    path: '/fav-heroes',
-    name: 'heroes',
-    component: () => import('../views/AppFavoriteHeroes.vue')
+    path: '/users',
+    name: 'users',
+    component: Users
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: About
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 

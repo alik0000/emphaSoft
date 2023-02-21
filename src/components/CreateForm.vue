@@ -2,29 +2,35 @@
   <form class="user-form" @submit.prevent="submitForm">
     <div class="user-form__fields">
       <AppField
+          v-model="form.username"
           id="user-name"
           placeholder="Введите ваше имя"
-          v-model="form.username"
+          maxLength="150"
       >
         Ник
       </AppField>
       <AppField
+          v-model="form.password"
           type="password"
           id="user-password"
           placeholder="Введите ваш пароль"
-          v-model="form.password"
+          maxLength="128"
       >
         Пароль
       </AppField>
-      <AppField id="last-name"
-                placeholder="Введите ваше фамилия"
+      <AppField
                 v-model="form.last_name"
+                id="last-name"
+                placeholder="Введите ваше фамилия"
+                maxLength="150"
       >
         Фамилия
       </AppField>
-      <AppField id="first-name"
-                placeholder="Введите ваше имя"
+      <AppField
                 v-model="form.first_name"
+                id="first-name"
+                placeholder="Введите ваше имя"
+                maxLength="150"
       >
         Имя
       </AppField>
@@ -42,8 +48,12 @@ import {mapMutations} from "vuex";
 import AppField from "./AppField";
 import AppCheckbox from "./AppCheckbox";
 
+/**
+ * @name CreateForm
+ * @description Form creation user
+ */
 export default {
-  name: "UserForm",
+  name: "CreateForm",
   components: {AppField, AppCheckbox},
   data() {
     return {
@@ -67,30 +77,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.user-form {
-  display: flex;
-  flex-direction: column;
-  row-gap: 2.8rem;
-  max-width: 80rem;
-  padding: 2.4rem;
-  border-radius: 3.2rem;
-  background-color: var(--element-background);
-
-  &__fields {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.6rem;
-
-    > * {
-      flex: 1 0 calc(100% / 2 - 0.8rem);
-    }
-  }
-
-  &__controls {
-    display: flex;
-    column-gap: 1.6rem;
-  }
-}
-</style>

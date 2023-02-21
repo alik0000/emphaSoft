@@ -110,50 +110,31 @@ picture {
   }
 }
 
-[class^='_icon'] {
-  display: block;
-}
-
-.visually-hidden {
-  @include visually-hidden();
-}
-
 // base typography
-h1,
-._visually-h1 {
+h1 {
   @include h1;
 }
 
-h2,
-._visually-h2 {
+h2 {
   @include h2;
 }
 
-h3,
-._visually-h3 {
+h3 {
   @include h3;
 }
 
-h4,
-._visually-h4 {
+h4 {
   @include h4;
-}
-
-h1,
-._visually-h1,
-h2,
-._visually-h2,
-h3,
-._visually-h3,
-h4,
-._visually-h4 {
-
 }
 
 p {
   @include text-body;
 }
 
-[data-animation] {
-  visibility: hidden;
+button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  appearance: none;
+  color: currentColor;
 }

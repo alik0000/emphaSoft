@@ -1,0 +1,40 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.6rem;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.8rem 1.8rem;
+  border-radius: 1.2rem;
+  opacity: 1;
+  transition: $tr-default;
+  transition-property: background-color, color, opacity;
+
+  @include text-btn;
+
+  &._accent {
+    background-color: var(--accent-color);
+    color: var(--contrast-color);
+  }
+
+  &._warning {
+    background-color: var(--warning-color);
+    color: var(--contrast-color);
+  }
+
+  &._danger {
+    background-color: var(--error-color);
+    color: var(--contrast-color);
+  }
+
+  @include hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    background-color: var(--disabled-color);
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}

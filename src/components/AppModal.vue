@@ -1,21 +1,61 @@
 <template>
-  <div class="modal-background" @click="$emit('close')"></div>
-  <div class="modal">
-    <h3>Crypton Academy</h3>
-    <p>Компания Crypton Studio за 5 лет на рынке стала одной из самых компетентных российских
-      компаний в области блокчейн разработки. Мы запускаем собственную Crypton
-      Academy и открываем набор на программы стажировок для желающих сделать успешную карьеру
-      в мировом криптосообществе.</p>
+  <div v-show="ModalVisible" class="modal">
+    <div class="modal__overlay" @click="handlerClose"></div>
+    <div class="modal__content">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
+import {mapGetters, mapMutations} from "vuex";
+
+/**
+ * @name AppModal
+ * @description Application modal
+ */
 export default {
-  emits:['close'],
-  name: "AppModal"
+  name: "AppModal",
+  computed: {
+    ...mapGetters(['ModalVisible'])
+  },
+  methods: {
+    ...mapMutations(['TOGGLE_MODAL_VISIBLE']),
+    handlerClose() {
+      this.TOGGLE_MODAL_VISIBLE(false)
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@import '@/scss/app.scss';
 
+.modal {
+  @include box(100%);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__overlay {
+    @include box(100%);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--overlay-color);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    display: block;
+    pointer-events: auto;
+  }
+}
 </style>

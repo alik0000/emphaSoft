@@ -1,23 +1,46 @@
 <template>
-  <the-navbar @show-modal="modal = !modal"></the-navbar>
+  <div class="app-content">
+    <AppHeader></AppHeader>
 
-  <div class="container with-nav">
-    <router-view></router-view>
-    <teleport to="body">
-      <app-modal v-if="modal" @close="modal = false"/>
-    </teleport>
+    <main id="main" class="main">
+      <router-view></router-view>
+    </main>
+
+    <AppFooter></AppFooter>
+
+    <LoadingIndicator />
+    <AppModal>
+      <component :is="ModalComponent"></component>
+    </AppModal>
   </div>
+
 </template>
 
 <script>
-import TheNavbar from "./components/TheNavbar";
+import {mapGetters} from "vuex";
+
+import AppHeader from "./components/AppHeader";
+import AppFooter from "./components/AppFooter";
 import AppModal from "./components/AppModal";
+import LoadingIndicator from "./components/LoadingIndicator";
+import CreateForm from "./components/CreateForm";
+
 export default {
-  data() {
-    return {
-      modal: false
-    }
-  },
-  components: { TheNavbar, AppModal}
+  components: { AppHeader, AppFooter, AppModal, LoadingIndicator, CreateForm},
+  computed: {
+    ...mapGetters(['ModalComponent'])
+  }
 }
 </script>
+
+<style lang="scss">
+.app-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .main {
+    padding-top: 6.4rem;
+  }
+}
+</style>

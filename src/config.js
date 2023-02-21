@@ -20,6 +20,21 @@ export default {
             tablet: 1023,
             mobile: 767,
         },
+
+        // Viewport parameters
+        viewport: {
+            width: 1920,
+            height: 1080,
+            centerX: 1920 / 2,
+            centerY: 1080 / 2,
+            aspectRatio: 1920 / 2,
+            isDesktop: true,
+            isLaptop: false,
+            isTablet: false,
+            isMobile: false,
+            isHorizontal: false, // true if mobile in horizontal position
+            size: 'desktop',
+        },
     },
 
     // Container defaults

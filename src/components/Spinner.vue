@@ -1,5 +1,3 @@
-<!-- serverUsage: false -->
-
 <template>
   <svg
     width="38"
@@ -31,6 +29,6 @@
  * @name Spinner
  */
 export default {
-  name: 'SpinnerComponent',
+  name: 'Spinner',
 }
 </script>

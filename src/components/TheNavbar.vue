@@ -1,20 +1,106 @@
 <template>
-  <div class="navbar">
-    <h2 class="logo" @click="$emit('show-modal')">Crypton Academy</h2>
-    <ul class="navbar-menu">
+  <nav class="navbar">
+    <ul class="navbar__list">
       <li>
-        <router-link to="/">Главная</router-link>
+        <router-link to="/" class="navbar__link">
+          Главная
+        </router-link>
       </li>
       <li>
-        <router-link to="/fav-heroes">Любимые герои</router-link>
+        <router-link to="/users" class="navbar__link">
+          Пользователи
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/about" class="navbar__link">
+          О нас
+        </router-link>
       </li>
     </ul>
-  </div>
+    <div class="navbar__btn-auth">
+      <button v-if="Token" type="button" @click="logOut" class="btn _danger navbar__link">
+        Выход
+      </button>
+      <router-link v-else to="/login" class="btn _accent navbar__link">
+        Вход
+      </router-link>
+    </div>
+  </nav>
 </template>
 
 <script>
+import {mapGetters, mapMutations} from "vuex";
+
+/**
+ * @name TheNavbar
+ * @description The navbar of the pages
+ */
 export default {
-  emits:['show-modal'],
-  name: "TheNavbar"
+  name: "TheNavbar",
+  computed: {
+    /**
+     * Login's Token.
+     * @return {String}
+     */
+    ...mapGetters(['Token'])
+  },
+  methods: {
+    ...mapMutations(['CLEAR_TOKEN']),
+    logOut() {
+      this.CLEAR_TOKEN()
+      this.$router.push({ name: 'users' })
+    }
+  }
 }
 </script>
+<style lang="scss">
+@import "@/scss/app.scss";
+
+.navbar {
+  display: flex;
+  align-items: center;
+  column-gap: 2.4rem;
+  min-height: 100%;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    column-gap: 1.2rem;
+    height: 100%;
+  }
+
+  &__link {
+    @include text-lg;
+
+    color: var(--text-color);
+    transition: color $tr-default;
+
+    @include hover {
+      color: var(--accent-color);
+    }
+  }
+
+  li {
+
+    a {
+      display: flex;
+      flex-direction: column;
+
+      &::after {
+        width: 100%;
+        height: 2px;
+        background: var(--accent-color);
+        transform: scaleX(0);
+        transition: transform $tr-default;
+        transform-origin: right center;
+        content: '';
+      }
+
+      &.active::after {
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+    }
+  }
+}
+</style>

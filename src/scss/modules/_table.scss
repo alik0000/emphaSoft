@@ -1,0 +1,40 @@
+table {
+  border-radius: 2rem;
+  border-collapse: collapse;
+  overflow: hidden;
+  table-layout: fixed;
+  width: 100%;
+  outline: 1px solid var(--element-background);
+
+  td,
+  th {
+    padding: 2.4rem;
+    text-align: center;
+
+    &:first-child {
+      width: 10rem;
+    }
+  }
+
+  thead {
+    background-color: var(--element-background);
+
+    td {
+      font-weight: 600;
+    }
+  }
+
+  tbody {
+    background-color: var(--app-background);
+
+    tr {
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--border-color);
+      }
+    }
+
+    td {
+      @include text-body;
+    }
+  }
+}

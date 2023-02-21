@@ -1,0 +1,24 @@
+.user-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2.8rem;
+  max-width: 80rem;
+  padding: 2.4rem;
+  border-radius: 3.2rem;
+  background-color: var(--element-background);
+
+  &__fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+
+    > * {
+      flex: 1 0 calc(100% / 2 - 0.8rem);
+    }
+  }
+
+  &__controls {
+    display: flex;
+    column-gap: 1.6rem;
+  }
+}
