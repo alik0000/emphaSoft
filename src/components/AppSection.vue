@@ -48,6 +48,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/scss/app.scss";
+
 .app-section {
   margin-bottom: 12rem;
 

@@ -1,6 +1,6 @@
 <template>
   <label class="app-checkbox">
-    <input type="checkbox" @input="$emit('update:modelValue', $event.target.checked)" />
+    <input type="checkbox" :checked="modelValue" @input="$emit('update:modelValue', $event.target.checked)" />
     <span>
       <slot></slot>
     </span>

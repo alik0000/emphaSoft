@@ -17,10 +17,10 @@ import {mapGetters, mapMutations} from "vuex";
 export default {
   name: "AppModal",
   computed: {
-    ...mapGetters(['ModalVisible'])
+    ...mapGetters({ ModalVisible: "modal/ModalVisible" })
   },
   methods: {
-    ...mapMutations(['TOGGLE_MODAL_VISIBLE']),
+    ...mapMutations({ TOGGLE_MODAL_VISIBLE: "modal/TOGGLE_MODAL_VISIBLE" }),
     handlerClose() {
       this.TOGGLE_MODAL_VISIBLE(false)
     }

@@ -28,7 +28,7 @@ import CreateForm from "./components/CreateForm";
 export default {
   components: { AppHeader, AppFooter, AppModal, LoadingIndicator, CreateForm},
   computed: {
-    ...mapGetters(['ModalComponent'])
+    ...mapGetters({ModalComponent: "modal/ModalComponent"})
   }
 }
 </script>

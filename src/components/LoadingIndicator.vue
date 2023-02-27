@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {useStore} from 'vuex'
 import Spinner from "./Spinner";
+import {computed} from "vue";
 
 export default {
   name: "LoadingIndicator",
@@ -23,9 +24,13 @@ export default {
 
   /**
    * Loading indicator visibility.
-   * @return {Boolean}
+   * @return {any}
    */
-  computed: mapGetters(['Loading'])
+  setup() {
+    return {
+      Loading: computed(() => useStore().getters['modal/Loading'])
+    }
+  }
 }
 </script>
 

@@ -14,6 +14,11 @@ table {
     &:first-child {
       width: 10rem;
     }
+
+    @include --tablet {
+      padding: 1.2rem 0.6rem;
+      width: fit-content;
+    }
   }
 
   thead {
@@ -35,6 +40,9 @@ table {
 
     td {
       @include text-body;
+
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }

@@ -2,32 +2,41 @@
   <AppSection tag="section">
     <template #head>
       <h1>Список пользователей</h1>
-      <button type="button" class="btn _accent" @click="openModal">Создать</button>
+      <button v-if="token" type="button" class="btn _accent" @click="openModal">Создать</button>
     </template>
-    <user-list :items="Users"/>
+    <user-list :items="userItems"/>
   </AppSection>
 </template>
 
 <script>
+import { onMounted, computed } from "vue";
+import {useStore} from "vuex";
 import AppSection from "../components/AppSection";
 import UserList from "../components/UserList";
-import {mapGetters, mapMutations} from "vuex";
 
 export default {
-  name: "users",
+  name: "Users",
   components: {AppSection, UserList},
-  computed: {
-    ...mapGetters(['Token', 'Users'])
-  },
-  async mounted() {
-    if (!!this.Token) {
-      await this.$store.dispatch('getData', this.Token)
+  setup() {
+    const store = useStore()
+    const token = computed(() => store.getters["login/Token"])
+
+    const changeLoading = (flag) => {
+      store.commit('modal/CHANGE_LOADING', flag)
     }
-  },
-  methods: {
-    ...mapMutations(['TOGGLE_MODAL_VISIBLE']),
-    openModal() {
-      this.TOGGLE_MODAL_VISIBLE(true)
+
+    onMounted(async () => {
+      if (!!token.value) {
+        changeLoading(true)
+        await store.dispatch('user/getData', token.value)
+        changeLoading(false)
+      }
+    })
+
+    return {
+      token,
+      userItems: computed(() => store.getters["user/UserItems"]),
+      openModal: () => store.commit('modal/TOGGLE_MODAL_VISIBLE', true),
     }
   },
 }

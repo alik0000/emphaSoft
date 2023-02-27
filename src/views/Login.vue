@@ -6,7 +6,7 @@
           <label for="userName">
             Имя пользователя:
           </label>
-          <input v-model.trim="userName" type="text" name="userName">
+          <input v-model.trim="username" type="text" name="userName">
         </div>
 
         <div :class="['field', {error}]">
@@ -28,35 +28,40 @@
 </template>
 
 <script>
+import { reactive, computed, toRefs } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
 export default {
   name: "Login",
-  data () {
-    return {
-      userName: '',
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+    const data = reactive({
+      username: '',
       password: '',
-      error: null
+      error: '',
+    })
+
+    const login = () => {
+      try {
+        store.dispatch('login/logIn', {
+          username: data.username,
+          password: data.password
+        })
+
+        router.push({ name: 'users' })
+      } catch(err) {
+        data.error = err.response.data.non_field_errors[0]
+      }
+    }
+
+    return {
+      ...toRefs(data),
+      isAble: computed(() => !!data.username && !!data.password),
+      login,
     }
   },
-  computed: {
-    isAble() {
-      return !!this.userName && !!this.password
-    }
-  },
-  methods: {
-    login() {
-      this.$store
-          .dispatch('login', {
-            username: this.userName,
-            password: this.password
-          })
-          .then(() => {
-            this.$router.push({ name: 'users' })
-          })
-          .catch(err => {
-            this.error = err.response.data.non_field_errors[0]
-          })
-    }
-  }
 }
 </script>
 

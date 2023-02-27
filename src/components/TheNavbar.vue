@@ -18,10 +18,10 @@
       </li>
     </ul>
     <div class="navbar__btn-auth">
-      <button v-if="Token" type="button" @click="logOut" class="btn _danger navbar__link">
+      <button v-if="token" type="button" @click="logOut" class="btn _danger navbar__link">
         Выход
       </button>
-      <router-link v-else to="/login" class="btn _accent navbar__link">
+      <router-link v-else to="/login" tag="button" class="btn _accent navbar__link">
         Вход
       </router-link>
     </div>
@@ -29,7 +29,9 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import {mapGetters, useStore} from "vuex";
+import {computed} from "vue";
+import {useRouter} from "vue-router";
 
 /**
  * @name TheNavbar
@@ -37,20 +39,20 @@ import {mapGetters, mapMutations} from "vuex";
  */
 export default {
   name: "TheNavbar",
-  computed: {
-    /**
-     * Login's Token.
-     * @return {String}
-     */
-    ...mapGetters(['Token'])
-  },
-  methods: {
-    ...mapMutations(['CLEAR_TOKEN']),
-    logOut() {
-      this.CLEAR_TOKEN()
-      this.$router.push({ name: 'users' })
+  setup() {
+    const store = useStore()
+    const router = useRouter()
+
+    const logOut = () => {
+      store.commit('login/CLEAR_TOKEN')
+      router.push({ name: 'users' })
     }
-  }
+
+    return {
+      token: computed(() => store.getters["login/Token"]),
+      logOut
+    }
+  },
 }
 </script>
 <style lang="scss">
