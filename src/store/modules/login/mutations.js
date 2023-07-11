@@ -7,4 +7,10 @@ export default {
         state.token = ''
         localStorage.removeItem('token')
     },
+    SET_ERROR_MESSAGE(state, message) {
+        state.errorMessage = message
+    },
+    CLEAR_ERROR_MESSAGE(state) {
+        state.errorMessage = ''
+    }
 }

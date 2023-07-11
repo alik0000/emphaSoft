@@ -15,9 +15,6 @@
 export default {
   name: "AppCheckbox",
   props: {
-    /**
-     * model value
-     */
     modelValue: {
       type: Boolean,
     },

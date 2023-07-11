@@ -20,23 +20,6 @@
     <div>Architecto, aut deserunt doloremque dolorum eaque earum eligendi, error et, id natus nobis perspiciatis quae
       sapiente sed tempore! Delectus dignissimos fugit, in placeat porro vel! Iusto minima nobis pariatur quidem.
     </div> <br>
-    <div>Accusamus animi assumenda commodi, explicabo illo maxime neque nobis nostrum nulla perspiciatis possimus
-      praesentium, quidem quo rem temporibus tenetur totam voluptatum! Beatae blanditiis consequuntur corporis eos fuga
-      odit quos voluptates!
-    </div> <br>
-    <div>Beatae eos incidunt neque porro voluptatibus? Asperiores cum cumque eligendi, et explicabo fuga illo nihil non
-      quos, ratione tempora tempore tenetur unde. Cupiditate nam odit porro quas recusandae temporibus voluptatem!
-    </div> <br>
-    <div>Ab adipisci alias animi at cupiditate dolores ducimus esse explicabo illum ipsa magni maiores natus nostrum
-      porro quaerat quam ratione reiciendis repellendus saepe sequi soluta, totam voluptatem! Autem cum, quo!
-    </div> <br>
-    <div>Aliquam amet consequatur culpa dignissimos distinctio earum ex expedita inventore ipsa ipsam ipsum itaque
-      laudantium libero maiores modi natus necessitatibus, nisi odit optio praesentium, quaerat quas quasi saepe
-      similique voluptate?
-    </div> <br>
-    <div>Autem consequatur eaque enim ex iusto, maiores pariatur repellat. Alias aliquid atque dolor dolorem, error ex
-      inventore magnam maxime non odit porro quibusdam quos, recusandae rerum sint suscipit, vitae? Quam?
-    </div> <br>
   </AppSection>
 </template>
 

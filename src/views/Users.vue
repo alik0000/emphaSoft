@@ -2,9 +2,9 @@
   <AppSection tag="section">
     <template #head>
       <h1>Список пользователей</h1>
-      <button v-if="token" type="button" class="btn _accent" @click="openModal">Создать</button>
+      <button v-if="!!token" type="button" class="btn _accent" @click="openModal">Создать</button>
     </template>
-    <user-list :items="userItems"/>
+    <UserList :items="userItems"/>
   </AppSection>
 </template>
 
@@ -26,9 +26,9 @@ export default {
     }
 
     onMounted(async () => {
-      if (!!token.value) {
+      if (!!token) {
         changeLoading(true)
-        await store.dispatch('user/getData', token.value)
+        await store.dispatch('user/getData')
         changeLoading(false)
       }
     })

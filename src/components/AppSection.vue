@@ -26,19 +26,11 @@ import Container from "./Container";
 export default {
   name: "AppSection",
   components: { Container },
-
   props: {
-    /**
-     * Element tag.
-     */
     tag: {
       type: String,
       default: 'div',
     },
-
-    /**
-     * Element class.
-     */
     className: {
       type: String,
       default: '',

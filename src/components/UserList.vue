@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="({id, last_name, first_name, username, is_active}, index) in users" :key="index">
+          <tr v-for="({id, last_name, first_name, username}, index) in users" :key="index">
             <td class="_center">
               <span>{{ id }}</span>
             </td>
@@ -71,7 +71,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const searchUsername = ref('')
-    const token = computed(() => store.getters["login/Token"])
+    const token = computed(() => store.getters['login/Token'])
 
     const users = computed(() => {
       return props.items

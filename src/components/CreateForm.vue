@@ -3,7 +3,7 @@
     <div class="user-form__fields">
       <AppField
           v-model="username"
-          id="user-name"
+          id="new-user-name"
           placeholder="Введите ваше имя"
           maxLength="150"
       >
@@ -12,7 +12,7 @@
       <AppField
           v-model="password"
           type="password"
-          id="user-password"
+          id="new-user-password"
           placeholder="Введите ваш пароль"
           maxLength="128"
       >
@@ -20,7 +20,7 @@
       </AppField>
       <AppField
           v-model="last_name"
-          id="last-name"
+          id="new-user-last-name"
           placeholder="Введите ваше фамилия"
           maxLength="150"
       >
@@ -28,7 +28,7 @@
       </AppField>
       <AppField
           v-model="first_name"
-          id="first-name"
+          id="new-user-first-name"
           placeholder="Введите ваше имя"
           maxLength="150"
       >
@@ -44,7 +44,8 @@
 </template>
 
 <script>
-import {reactive, toRefs} from "vue";import {useStore} from "vuex";
+import {reactive, toRefs} from "vue";
+import {useStore} from "vuex";
 import AppField from "./AppField";
 import AppCheckbox from "./AppCheckbox";
 
@@ -70,9 +71,7 @@ export default {
     }
 
     const submitForm = async() => {
-      toggleModalVisible(true)
       await store.dispatch('user/createUser', {...form})
-      toggleModalVisible(false)
     }
 
     return {

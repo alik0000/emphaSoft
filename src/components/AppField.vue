@@ -1,5 +1,5 @@
 <template>
-  <div class="field">
+  <div :class="['field', {error}]">
     <label :for="id"><slot></slot></label>
     <input
         :type="type"
@@ -19,34 +19,26 @@
 export default {
   name: "AppField",
   props: {
-    /**
-     * model value
-     */
     modelValue: {
       type: String,
       default: ''
     },
-    /**
-     * field label
-     */
     label: {
       type: String,
       default: '',
     },
-    /**
-     * field type
-     */
     type: {
       type: String,
       default: 'text',
     },
-    /**
-     * field id
-     */
     id: {
       type: String,
       default: '',
-    }
+    },
+    error: {
+      type: Boolean,
+      default: false,
+    },
   }
 }
 </script>

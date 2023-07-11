@@ -6,8 +6,8 @@
     <form class="user-form" @submit.prevent="submitForm">
       <div class="user-form__fields">
         <AppField
-            v-model="form.username"
-            :model-value="form.username"
+            v-model="username"
+            :model-value="username"
             id="user-name"
             placeholder="Введите ваше имя"
             maxLength="150"
@@ -15,7 +15,8 @@
           Ник
         </AppField>
         <AppField
-            v-model="form.password"
+            v-model="password"
+            :model-value="password"
             type="password"
             id="user-password"
             placeholder="Введите ваш пароль"
@@ -24,8 +25,8 @@
           Пароль
         </AppField>
         <AppField
-            v-model="form.last_name"
-            :model-value="form.last_name"
+            v-model="last_name"
+            :model-value="last_name"
             id="last-name"
             placeholder="Введите ваше фамилия"
             maxLength="150"
@@ -33,8 +34,8 @@
           Фамилия
         </AppField>
         <AppField
-            v-model="form.first_name"
-            :model-value="form.first_name"
+            v-model="first_name"
+            :model-value="first_name"
             id="first-name"
             placeholder="Введите ваше имя"
             maxLength="150"
@@ -42,7 +43,7 @@
           Имя
         </AppField>
       </div>
-      <AppCheckbox v-model="form.is_active">активный</AppCheckbox>
+      <AppCheckbox v-model="is_active">активный</AppCheckbox>
       <div class="user-form__controls">
         <button type="submit" class="btn _accent">Редактировать</button>
         <router-link to="/users" type="button" class="btn _danger">Назад</router-link>
@@ -52,7 +53,7 @@
 </template>
 
 <script>
-import { ref, onMounted, computed } from "vue";
+import {ref, onMounted, toRefs, reactive} from "vue";
 import {useStore} from "vuex";
 import {useRoute} from "vue-router";
 import axios from "axios";
@@ -70,16 +71,15 @@ export default {
   setup() {
     const store = useStore()
     const route = useRoute()
-    const form = ref({
-      id: '',
+    const id = ref(route.params['id'])
+    let form = reactive({
+      id,
       username: '',
       password: '',
       'first_name': '',
       'last_name': '',
       'is_active': false
     })
-    const id = ref(route.params['id'])
-    const token = computed(() => store.getters["login/Token"])
 
     const changeLoading = (flag) => {
       store.commit('modal/CHANGE_LOADING', flag)
@@ -88,13 +88,9 @@ export default {
     onMounted(async () => {
       changeLoading(true)
 
-      const { data } = await axios.get(`https://test-assignment.emphasoft.com/api/v1/users/${id.value}`, {
-        headers: {
-          Authorization: `Token ${token.value}`
-        }
-      })
+      const { data } = await axios.get(`/api/v1/users/${id.value}`)
 
-      form.value = data
+      Object.assign(form, {...data})
       changeLoading(false)
     })
 
@@ -104,7 +100,7 @@ export default {
     }
 
     return {
-      form,
+      ...toRefs(form),
       submitForm
     }
   },

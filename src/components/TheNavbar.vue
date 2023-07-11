@@ -18,7 +18,7 @@
       </li>
     </ul>
     <div class="navbar__btn-auth">
-      <button v-if="token" type="button" @click="logOut" class="btn _danger navbar__link">
+      <button v-if="!!token" type="button" @click="logOut" class="btn _danger navbar__link">
         Выход
       </button>
       <router-link v-else to="/login" tag="button" class="btn _accent navbar__link">
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {mapGetters, useStore} from "vuex";
+import {useStore} from "vuex";
 import {computed} from "vue";
 import {useRouter} from "vue-router";
 
@@ -45,11 +45,11 @@ export default {
 
     const logOut = () => {
       store.commit('login/CLEAR_TOKEN')
-      router.push({ name: 'users' })
+      router.push({ name: 'login' })
     }
 
     return {
-      token: computed(() => store.getters["login/Token"]),
+      token: computed(() => store.getters['login/Token']),
       logOut
     }
   },

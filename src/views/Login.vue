@@ -2,64 +2,60 @@
   <keep-alive>
     <div class="login">
       <form @submit.prevent="login" class="login__form">
-        <div :class="['field', {error}]">
-          <label for="userName">
-            Имя пользователя:
-          </label>
-          <input v-model.trim="username" type="text" name="userName">
-        </div>
+        <AppField v-model.trim="username" id="login-user-name">
+          Имя пользователя:
+        </AppField>
 
-        <div :class="['field', {error}]">
-          <label for="password">
-            Пароль:
-          </label>
-          <input v-model.trim="password" type="password" name="password">
-        </div>
-
+        <AppField type="password" v-model.trim="password" id="login-user-password">
+          Пароль:
+        </AppField>
 
         <button type="submit" :disabled="!isAble" class="btn login__btn _accent">
           Вход
         </button>
 
-        <span v-show="error" class="login__error">Не правильный логин или пароль, пожалуйста, попробуйте ещё раз!</span>
+        <span class="login__error">{{ errorMessage }}</span>
       </form>
     </div>
   </keep-alive>
 </template>
 
 <script>
-import { reactive, computed, toRefs } from "vue";
+import {computed, ref} from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
+import AppField from "../components/AppField.vue";
+import {useRouter} from "vue-router";
 
 export default {
   name: "Login",
+  components: {AppField},
   setup() {
     const store = useStore()
     const router = useRouter()
-    const data = reactive({
-      username: '',
-      password: '',
-      error: '',
-    })
+    const username = ref('test_super')
+    const password = ref('Nf<U4f<rDbtDxAPn')
 
-    const login = () => {
-      try {
-        store.dispatch('login/logIn', {
-          username: data.username,
-          password: data.password
-        })
+    const errorMessage = computed(() => store.getters['login/GetErrorMessage'])
 
-        router.push({ name: 'users' })
-      } catch(err) {
-        data.error = err.response.data.non_field_errors[0]
+    const login = async () => {
+      if (!!errorMessage) {
+        store.commit('login/CLEAR_ERROR_MESSAGE')
       }
+
+      await store.dispatch('login/logIn', {
+        username: username.value,
+        password: password.value
+      })
+
+      await router.push({name: 'users'})
     }
 
     return {
-      ...toRefs(data),
-      isAble: computed(() => !!data.username && !!data.password),
+      username,
+      password,
+      isAble: computed(() => !!username.value && !!password.value),
       login,
+      errorMessage,
     }
   },
 }
@@ -88,6 +84,10 @@ export default {
     display: inline-block;
     margin-top: 2.4rem;
     color: var(--error-color);
+
+    &:empty {
+      display: none;
+    }
   }
 }
 </style>
